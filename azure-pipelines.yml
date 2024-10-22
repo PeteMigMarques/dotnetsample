@@ -1,0 +1,18 @@
+variables:
+  buildConfiguration: 'Release'
+
+steps:
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'publish'
+    publishWebProjects: true
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'MCAPS-Support-REQ-75538-2024-pedromarques(b47f4b5c-a872-40c6-a011-01865fe9dd49)'
+    appType: 'webApp'
+    appName: 'petedotnetwin'
+    deployToSlotOrASE: true
+    resourceGroupName: 'pete_apps_win'
+    slotName: 'test'
+    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    deploymentMethod: 'zipDeploy'
